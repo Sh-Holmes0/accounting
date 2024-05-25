@@ -1,376 +1,794 @@
 <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Accounting</title>
-            <style>
-/* From extension vscode.github */
-/*---------------------------------------------------------------------------------------------
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Financial Accounting</title>
+  <style>
+    /* From extension vscode.github */
+    /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only],
-.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
-.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
-	display: none;
-}
+    .vscode-dark img[src$=\#gh-light-mode-only],
+    .vscode-light img[src$=\#gh-dark-mode-only],
+    .vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+    .vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+      display: none;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet"
+    type="text/css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+  <style>
+    .task-list-item {
+      list-style-type: none;
+    }
 
-</style>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
-<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-<style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        </style>
-        <style>
-.task-list-item {
-    list-style-type: none;
-}
+    .task-list-item-checkbox {
+      margin-left: -20px;
+      vertical-align: middle;
+      pointer-events: none;
+    }
+  </style>
+  <style>
+    :root {
+      --color-note: #0969da;
+      --color-tip: #1a7f37;
+      --color-warning: #9a6700;
+      --color-severe: #bc4c00;
+      --color-caution: #d1242f;
+      --color-important: #8250df;
+    }
+  </style>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-note: #2f81f7;
+        --color-tip: #3fb950;
+        --color-warning: #d29922;
+        --color-severe: #db6d28;
+        --color-caution: #f85149;
+        --color-important: #a371f7;
+      }
+    }
+  </style>
+  <style>
+    .markdown-alert {
+      padding: 0.5rem 1rem;
+      margin-bottom: 16px;
+      color: inherit;
+      border-left: .25em solid #888;
+    }
 
-.task-list-item-checkbox {
-    margin-left: -20px;
-    vertical-align: middle;
-    pointer-events: none;
-}
-</style>
-<style>
-:root {
-  --color-note: #0969da;
-  --color-tip: #1a7f37;
-  --color-warning: #9a6700;
-  --color-severe: #bc4c00;
-  --color-caution: #d1242f;
-  --color-important: #8250df;
-}
+    .markdown-alert>:first-child {
+      margin-top: 0
+    }
 
-</style>
-<style>
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-note: #2f81f7;
-    --color-tip: #3fb950;
-    --color-warning: #d29922;
-    --color-severe: #db6d28;
-    --color-caution: #f85149;
-    --color-important: #a371f7;
-  }
-}
+    .markdown-alert>:last-child {
+      margin-bottom: 0
+    }
 
-</style>
-<style>
-.markdown-alert {
-  padding: 0.5rem 1rem;
-  margin-bottom: 16px;
-  color: inherit;
-  border-left: .25em solid #888;
-}
+    .markdown-alert .markdown-alert-title {
+      display: flex;
+      font-weight: 500;
+      align-items: center;
+      line-height: 1
+    }
 
-.markdown-alert>:first-child {
-  margin-top: 0
-}
+    .markdown-alert .markdown-alert-title .octicon {
+      margin-right: 0.5rem;
+      display: inline-block;
+      overflow: visible !important;
+      vertical-align: text-bottom;
+      fill: currentColor;
+    }
 
-.markdown-alert>:last-child {
-  margin-bottom: 0
-}
+    .markdown-alert.markdown-alert-note {
+      border-left-color: var(--color-note);
+    }
 
-.markdown-alert .markdown-alert-title {
-  display: flex;
-  font-weight: 500;
-  align-items: center;
-  line-height: 1
-}
+    .markdown-alert.markdown-alert-note .markdown-alert-title {
+      color: var(--color-note);
+    }
 
-.markdown-alert .markdown-alert-title .octicon {
-  margin-right: 0.5rem;
-  display: inline-block;
-  overflow: visible !important;
-  vertical-align: text-bottom;
-  fill: currentColor;
-}
+    .markdown-alert.markdown-alert-important {
+      border-left-color: var(--color-important);
+    }
 
-.markdown-alert.markdown-alert-note {
-  border-left-color: var(--color-note);
-}
+    .markdown-alert.markdown-alert-important .markdown-alert-title {
+      color: var(--color-important);
+    }
 
-.markdown-alert.markdown-alert-note .markdown-alert-title {
-  color: var(--color-note);
-}
+    .markdown-alert.markdown-alert-warning {
+      border-left-color: var(--color-warning);
+    }
 
-.markdown-alert.markdown-alert-important {
-  border-left-color: var(--color-important);
-}
+    .markdown-alert.markdown-alert-warning .markdown-alert-title {
+      color: var(--color-warning);
+    }
 
-.markdown-alert.markdown-alert-important .markdown-alert-title {
-  color: var(--color-important);
-}
+    .markdown-alert.markdown-alert-tip {
+      border-left-color: var(--color-tip);
+    }
 
-.markdown-alert.markdown-alert-warning {
-  border-left-color: var(--color-warning);
-}
+    .markdown-alert.markdown-alert-tip .markdown-alert-title {
+      color: var(--color-tip);
+    }
 
-.markdown-alert.markdown-alert-warning .markdown-alert-title {
-  color: var(--color-warning);
-}
+    .markdown-alert.markdown-alert-caution {
+      border-left-color: var(--color-caution);
+    }
 
-.markdown-alert.markdown-alert-tip {
-  border-left-color: var(--color-tip);
-}
+    .markdown-alert.markdown-alert-caution .markdown-alert-title {
+      color: var(--color-caution);
+    }
+  </style>
 
-.markdown-alert.markdown-alert-tip .markdown-alert-title {
-  color: var(--color-tip);
-}
+</head>
 
-.markdown-alert.markdown-alert-caution {
-  border-left-color: var(--color-caution);
-}
+<body class="vscode-body vscode-light">
+  <h1 id="financial-accounting">Financial Accounting</h1>
+  <img src="./img/memes/images.jpg" />
+  <h2 id="table-of-conetent">table of conetent</h2>
+  <ul>
+    <li><a href="#financial-accounting">Financial Accounting</a>
+      <ul>
+        <li><a href="#table-of-conetent">table of conetent</a></li>
+        <li><a href="#assets">Assets</a>
+          <ul>
+            <li><a href="#assets-are-classified-based-on-three-criteria">Assets are classified based on three
+                criteria:</a></li>
+          </ul>
+        </li>
+        <li><a href="#liabilities">Liabilities</a>
+          <ul>
+            <li><a href="#a-liability-can-be-classified-as-current-or-long-term">A liability can be classified as
+                current or long-term:</a></li>
+          </ul>
+        </li>
+        <li><a href="#owners-equity">Owner’s Equity</a></li>
+        <li><a href="#revenues--expenses-in-the-accounting-equation">Revenues &amp; Expenses in the Accounting
+            Equation</a></li>
+        <li><a href="#financial-statements">Financial statements</a>
+          <ul>
+            <li><a href="#the-primary-financial-statements-include-the-following">The primary financial statements
+                include the following:</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-journal">The Journal</a></li>
+        <li><a href="#rules-of-debit-and-credit">rules of debit and credit</a></li>
+        <li><a href="#the-ledger">The Ledger</a>
+          <ul>
+            <li><a href="#important">IMPORTANT:</a></li>
+          </ul>
+        </li>
+        <li><a href="#trial-balance">Trial Balance</a>
+          <ul>
+            <li><a href="#important-1">IMPORTANT:</a></li>
+          </ul>
+        </li>
+        <li><a href="#income-statement">Income statement</a></li>
+        <li><a href="#statement-of-owners-equity">Statement of owner's equity</a></li>
+        <li><a href="#balance-sheet">Balance Sheet</a></li>
+        <li><a href="#adjusting-entries">Adjusting entries</a>
+          <ul>
+            <li><a href="#important-2">IMPORTANT:</a></li>
+            <li><a href="#there-are-two-types-of-adjusting-entries">There are two types of adjusting entries:</a></li>
+          </ul>
+        </li>
+        <li><a href="#depreciation">Depreciation</a></li>
+      </ul>
+    </li>
+    <li><a href="#cost-accounting">Cost Accounting</a>
+      <ul>
+        <li><a href="#why-should-there-be-costing-in-the-field-of-business">Why should there be costing in the field of
+            business?</a></li>
+        <li><a href="#difference-between-financial-accounting-and-cost-accounting">Difference between financial
+            accounting and cost accounting</a></li>
+        <li><a href="#cost-accounting-terms--conceptscost-accounting-terms--concepts">Cost Accounting Terms &amp;
+            ConceptsCost Accounting Terms &amp; Concepts</a></li>
+        <li><a href="#classification-of-costs">Classification Of Costs</a>
+          <ul>
+            <li><a href="#classification-by-nature-or-element">Classification by nature or element.</a></li>
+            <li><a href="#3-classification-on-the-basis-of-behaviour">3. Classification on the basis of behaviour.</a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#break-even-point">BREAK EVEN POINT</a>
+          <ul>
+            <li><a href="#the-break-even-point-bep-can-be-computed-in-terms-of">The Break Even Point (B.E.P) can be
+                computed in terms of:</a></li>
+            <li><a href="#net-income-computation-given-the-break-even-point">Net Income Computation Given The Break Even
+                Point:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <h2 id="assets">Assets</h2>
+  <p>Assets in accounting are resources that a company owns and uses to generate income and future economic benefits.
+    Examples of assets are company equipment, vehicles, accounts receivable, prepaid insurance, and office supplies.</p>
+  <h3 id="assets-are-classified-based-on-three-criteria">Assets are classified based on three criteria:</h3>
+  <ol>
+    <li>
+      <p><strong>Current vs noncurrent</strong>: An asset can be classified based on how soon it can be converted to
+        cash, or its economic benefit realized.</p>
+    </li>
+    <li>
+      <p><strong>Tangible vs intangible</strong>: An asset is classified based on its physical existence.</p>
+    </li>
+    <li>
+      <p><strong>Operating vs nonoperating</strong>: An asset is classified based on whether it’s used in the core
+        operations of the business.</p>
+    </li>
+  </ol>
+  <h2 id="liabilities">Liabilities</h2>
+  <p>Liabilities are amounts owed to other persons or entities as a result of a past event and involve a future
+    settlement using cash, goods, or services. Customers and vendors can be sources of liabilities for operations.
+    Paying taxes, fees, permits, and salaries are liabilities once they become due but aren’t yet paid. Businesses use
+    their assets to pay liabilities.</p>
+  <h3 id="a-liability-can-be-classified-as-current-or-long-term">A liability can be classified as current or long-term:
+  </h3>
+  <ol>
+    <li>
+      <p><strong>Current</strong>: Due in less than 12 months or within the normal operating cycle, whichever is
+        shorter.</p>
+    </li>
+    <li>
+      <p><strong>Long-term</strong>: Expected to be settled for a period of more than 12 months; some long-term
+        liabilities also require the application of the time value of money (computation of compounding interest), such
+        as leases, pensions, and notes</p>
+    </li>
+  </ol>
+  <h2 id="owners-equity">Owner’s Equity</h2>
+  <p>Owner’s equity is the residual interest or amount that assets exceed liabilities. It also represents the amount of
+    paid-in capital and retained earnings as a result of doing business for profit.</p>
+  <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
+            xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+            <semantics>
+              <mrow>
+                <mi>O</mi>
+                <mi>w</mi>
+                <mi>n</mi>
+                <mi>e</mi>
+                <mi>r</mi>
+                <mtext>’</mtext>
+                <mi>s</mi>
+                <mi>E</mi>
+                <mi>q</mi>
+                <mi>u</mi>
+                <mi>i</mi>
+                <mi>t</mi>
+                <mi>y</mi>
+                <mo>=</mo>
+                <mi>A</mi>
+                <mi>s</mi>
+                <mi>s</mi>
+                <mi>e</mi>
+                <mi>t</mi>
+                <mi>s</mi>
+                <mo>−</mo>
+                <mi>L</mi>
+                <mi>i</mi>
+                <mi>a</mi>
+                <mi>b</mi>
+                <mi>i</mi>
+                <mi>l</mi>
+                <mi>i</mi>
+                <mi>t</mi>
+                <mi>i</mi>
+                <mi>e</mi>
+                <mi>s</mi>
+              </mrow>
+              <annotation encoding="application/x-tex">Owner’s Equity = Assets - Liabilities
+              </annotation>
+            </semantics>
+          </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+              style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal"
+              style="margin-right:0.02691em;">Ow</span><span class="mord mathnormal">n</span><span
+              class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord">’</span><span
+              class="mord mathnormal">s</span><span class="mord mathnormal"
+              style="margin-right:0.03588em;">Eq</span><span class="mord mathnormal">u</span><span
+              class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal"
+              style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span
+              class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span
+            class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span
+              class="mord mathnormal">A</span><span class="mord mathnormal">sse</span><span
+              class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mspace"
+              style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace"
+              style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut"
+              style="height:0.6944em;"></span><span class="mord mathnormal">L</span><span
+              class="mord mathnormal">iabi</span><span class="mord mathnormal"
+              style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span
+              class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span
+              class="mord mathnormal">es</span></span></span></span></span></p>
+  <h2 id="revenues--expenses-in-the-accounting-equation">Revenues &amp; Expenses in the Accounting Equation</h2>
+  <p><strong>Revenue</strong> is income that results from a business engaging in the activities that it is set up to do.
+    <strong>Expenses</strong> are bills and other costs a business must pay for it to operate and earn revenue.
+  </p>
+  <h2 id="financial-statements">Financial statements</h2>
+  <p>Financial statements are written records that convey the business activities and the financial performance of a
+    company. They are used to provide information about a company’s financial position, performance, and cash flows.</p>
+  <h3 id="the-primary-financial-statements-include-the-following">The primary financial statements include the
+    following:</h3>
+  <ol>
+    <li>Income statement.</li>
+    <li>Statement of owner's equity.</li>
+    <li>Balance sheet.</li>
+    <li>Statement of cash flows.</li>
+  </ol>
+  <h2 id="the-journal">The Journal</h2>
+  <p>Financial statements are key goals of the accounting process. In order to prepare them at the end of an accounting
+    period, individual financial transactions must be analyzed, classified, and recorded all throughout the period. This
+    initially takes place in a record book called the journal, where financial events called transactions are recorded
+    as they happen, in chronological order.</p>
+  <p>When a transaction occurs, two or more accounts are affected. There is also a dollar amount associated with each of
+    the accounts. Determining which accounts are impacted, and by how much, is the first step in making a journal entry.
+  </p>
+  <img src="./img/Screenshot 2024-05-24 145603.png" />
+  <h2 id="rules-of-debit-and-credit">rules of debit and credit</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Account Type</th>
+        <th>Normal Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Assests</td>
+        <td>Debit</td>
+      </tr>
+      <tr>
+        <td>Expense</td>
+        <td>Debit</td>
+      </tr>
+      <tr>
+        <td>Revenue</td>
+        <td>Credit</td>
+      </tr>
+      <tr>
+        <td>Liability</td>
+        <td>Credit</td>
+      </tr>
+      <tr>
+        <td>Owner Equity</td>
+        <td>Credit</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2 id="the-ledger">The Ledger</h2>
+  <p>The ledger is the second accounting record book that is a list of a company’s individual accounts list in order of
+    account category. While the journal lists all types of transactions chronologically, the ledgers separate this same
+    information out by account and keep a running balance of each of these accounts.</p>
+  <p>Each account has its own ledger page. The account name appears across the top.</p>
+  <h3 id="important">IMPORTANT:</h3>
+  <ol>
+    <li>Information entered in the ledger is always copied from what is already in the journal.</li>
+    <li>An account’s running balance typically appears in either the Debit or the Credit column, not both..</li>
+    <li>The process of copying from the journal to the ledger is called Posting.</li>
+  </ol>
+  <img src="./img/Screenshot 2024-05-24 222033.png">
+  <h2 id="trial-balance">Trial Balance</h2>
+  <ul>
+    <li>The total of all the debit balances in a company’s ledger accounts must always equal the total of all the credit
+      balances.</li>
+    <li>A trial balance is a list of all a business’s accounts and its current ledger balances (copied over from the
+      ledger accounts).</li>
+    <li>A trial balance may be generated at any time to test whether total debits equals total credits. It is simply a
+      worksheet to check for accuracy before preparing financial statements.</li>
+  </ul>
+  <h3 id="important-1">IMPORTANT:</h3>
+  <p>If both of the Total columns do not equal, there is an error that must be found and corrected.
+    <img src="./img/Screenshot 2024-05-24 222440.png">
+  </p>
+  <h2 id="income-statement">Income statement</h2>
+  <ul>
+    <li>The income statement is a report that lists and summarizes <strong><em>revenue, expense, and net income
+          information</em></strong> for a period of time, usually a month or a year.</li>
+    <li>It is based on the following equation:</li>
+  </ul>
+  <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
+            xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+            <semantics>
+              <mrow>
+                <mi>R</mi>
+                <mi>e</mi>
+                <mi>v</mi>
+                <mi>e</mi>
+                <mi>n</mi>
+                <mi>u</mi>
+                <mi>e</mi>
+                <mo>−</mo>
+                <mi>E</mi>
+                <mi>x</mi>
+                <mi>p</mi>
+                <mi>e</mi>
+                <mi>n</mi>
+                <mi>s</mi>
+                <mi>e</mi>
+                <mi>s</mi>
+                <mo>=</mo>
+                <mi>N</mi>
+                <mi>e</mi>
+                <mi>t</mi>
+                <mtext> </mtext>
+                <mi>i</mi>
+                <mi>n</mi>
+                <mi>c</mi>
+                <mi>o</mi>
+                <mi>m</mi>
+                <mi>e</mi>
+                <mo stretchy="false">(</mo>
+                <mi>o</mi>
+                <mi>r</mi>
+                <mtext> </mtext>
+                <mi>N</mi>
+                <mi>e</mi>
+                <mi>t</mi>
+                <mtext> </mtext>
+                <mi>l</mi>
+                <mi>o</mi>
+                <mi>s</mi>
+                <mi>s</mi>
+                <mo stretchy="false">)</mo>
+              </mrow>
+              <annotation encoding="application/x-tex">Revenue - Expenses =Net\space income (or\space Net\space loss)
+              </annotation>
+            </semantics>
+          </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+              style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal"
+              style="margin-right:0.00773em;">R</span><span class="mord mathnormal">e</span><span
+              class="mord mathnormal" style="margin-right:0.03588em;">v</span><span
+              class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span
+              class="mord mathnormal">u</span><span class="mord mathnormal">e</span><span class="mspace"
+              style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace"
+              style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut"
+              style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal"
+              style="margin-right:0.05764em;">E</span><span class="mord mathnormal">x</span><span
+              class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span
+              class="mord mathnormal">n</span><span class="mord mathnormal">ses</span><span class="mspace"
+              style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace"
+              style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut"
+              style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal"
+              style="margin-right:0.10903em;">N</span><span class="mord mathnormal">e</span><span
+              class="mord mathnormal">t</span><span class="mspace"> </span><span class="mord mathnormal">in</span><span
+              class="mord mathnormal">co</span><span class="mord mathnormal">m</span><span
+              class="mord mathnormal">e</span><span class="mopen">(</span><span class="mord mathnormal"
+              style="margin-right:0.02778em;">or</span><span class="mspace"> </span><span class="mord mathnormal"
+              style="margin-right:0.10903em;">N</span><span class="mord mathnormal">e</span><span
+              class="mord mathnormal">t</span><span class="mspace"> </span><span class="mord mathnormal"
+              style="margin-right:0.01968em;">l</span><span class="mord mathnormal">oss</span><span
+              class="mclose">)</span></span></span></span></span></p>
+  <h2 id="statement-of-owners-equity">Statement of owner's equity</h2>
+  <ul>
+    <li>
+      <p>The statement of owner's equity is prepared after the income statement.</p>
+    </li>
+    <li>
+      <p>It shows the beginning and ending owner's equity balances and the items affecting owner's equity during the
+        period.</p>
+    </li>
+    <li>
+      <p>These items include investments, the net income or loss from the income statement, and withdrawals.</p>
+    </li>
+    <li>
+      <p>Because the specific revenue and expense categories that determine net income or loss appear on the income
+        statement, the statement of owner's equity shows only the total net income or loss.</p>
+      <img src="./img/Screenshot 2024-05-24 222952.png">
+    </li>
+  </ul>
+  <h2 id="balance-sheet">Balance Sheet</h2>
+  <p>The balance sheet shows the balance, at a particular time, of each asset, each liability, and owner's equity.
+    It proves that the accounting equation is in balance.</p>
+  <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
+            xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+            <semantics>
+              <mrow>
+                <mi>A</mi>
+                <mi>s</mi>
+                <mi>s</mi>
+                <mi>e</mi>
+                <mi>t</mi>
+                <mi>s</mi>
+                <mo>=</mo>
+                <mi>L</mi>
+                <mi>i</mi>
+                <mi>a</mi>
+                <mi>b</mi>
+                <mi>i</mi>
+                <mi>l</mi>
+                <mi>i</mi>
+                <mi>t</mi>
+                <mi>i</mi>
+                <mi>e</mi>
+                <mi>s</mi>
+                <mo>+</mo>
+                <mi>O</mi>
+                <mi>w</mi>
+                <mi>n</mi>
+                <mi>e</mi>
+                <msup>
+                  <mi>r</mi>
+                  <mo mathvariant="normal" lspace="0em" rspace="0em">′</mo>
+                </msup>
+                <mi>s</mi>
+                <mi>E</mi>
+                <mi>q</mi>
+                <mi>u</mi>
+                <mi>i</mi>
+                <mi>t</mi>
+                <mi>y</mi>
+              </mrow>
+              <annotation encoding="application/x-tex">Assets = Liabilities + Owner&#x27;s Equity
+              </annotation>
+            </semantics>
+          </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+              style="height:0.6833em;"></span><span class="mord mathnormal">A</span><span
+              class="mord mathnormal">sse</span><span class="mord mathnormal">t</span><span
+              class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span
+              class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span
+            class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span
+              class="mord mathnormal">L</span><span class="mord mathnormal">iabi</span><span class="mord mathnormal"
+              style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span
+              class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span
+              class="mord mathnormal">es</span><span class="mspace" style="margin-right:0.2222em;"></span><span
+              class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span
+            class="base"><span class="strut" style="height:0.9963em;vertical-align:-0.1944em;"></span><span
+              class="mord mathnormal" style="margin-right:0.02691em;">Ow</span><span
+              class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mord"><span
+                class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span
+                  class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span
+                        style="top:-3.113em;margin-right:0.05em;"><span class="pstrut"
+                          style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span
+                            class="mord mtight"><span
+                              class="mord mtight">′</span></span></span></span></span></span></span></span></span><span
+              class="mord mathnormal">s</span><span class="mord mathnormal"
+              style="margin-right:0.03588em;">Eq</span><span class="mord mathnormal">u</span><span
+              class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal"
+              style="margin-right:0.03588em;">y</span></span></span></span></span></p>
+  <p>The ending balance on the statement of owner's equity is used to report owner's equity on the balance sheet.</p>
+  <h2 id="adjusting-entries">Adjusting entries</h2>
+  <ul>
+    <li>Adjusting entries are special entries made just before financial statements are prepared at the end of the month
+      and/or year.</li>
+    <li>They bring the balances of certain accounts up to date if they are not already current to properly match
+      revenues and expenses.</li>
+    <li>Many ledger account balances are already correct at the end of the accounting period; however, some account
+      balances may have changed during the period, but have not yet been updated.</li>
+    <li>This is what you will do by making adjusting entries, and this will ensure that your financial statement numbers
+      are current and correct.</li>
+  </ul>
+  <h3 id="important-2">IMPORTANT:</h3>
+  <ol>
+    <li>Each adjusting entry will always affect at least one income statement account (revenue or expense) and one
+      balance sheet account (asset or liability)</li>
+  </ol>
+  <p>The following list includes accounts whose balances may need to be brought up to date due to adjusting entries
+    process
+    <img src="./img/Screenshot 2024-05-25 024411.png" />
+  </p>
+  <h3 id="there-are-two-types-of-adjusting-entries">There are two types of adjusting entries:</h3>
+  <ul>
+    <li>Deferrals, <em>&quot;Deferred&quot; means &quot;postponed into the future&quot;</em></li>
+    <li>Accruals, <em>&quot;Accrued&quot; means &quot;to grow over time&quot; or &quot;accumulated&quot;</em></li>
+  </ul>
+  <ol>
+    <li>Deferred expenses
+      In this case you have purchased something in “bulk” that will last you longer than one month, such as supplies,
+      insurance, rent, or equipment</li>
+    <li>Deferred revenue
+      In this case a customer has paid you in advance for a service you will perform in the future.</li>
+    <li>Accrued expenses
+      In this case someone is already performing a service for you, but you have not paid them or recorded any journal
+      entry yet.</li>
+    <li>Accrued revenue
+      In this case a customer will only pay you well after you complete a job that extends more than one accounting
+      period.</li>
+  </ol>
+  <h2 id="depreciation">Depreciation</h2>
+  <ul>
+    <li>
+      <p>A fixed asset is a tangible/physical item owned by a business that is relatively expensive and has a permanent
+        or long life, more than one year.</p>
+    </li>
+    <li>
+      <p>Examples are equipment, furnishings, vehicles, buildings, and land.</p>
+    </li>
+    <li>
+      <p>Each of these is recorded as an asset at the time it is purchased.</p>
+    </li>
+    <li>
+      <p>Its initial value, and the amount in the journal entry for the purchase, is what it costs.</p>
+    </li>
+    <li>
+      <p>Although fixed assets cost a company money, they are not initially recorded as expenses.</p>
+      <ul>
+        <li>( Notice in the journal entry of Example (2) that the debit account is “Equipment,” NOT “Equipment
+          Expense”).</li>
+      </ul>
+    </li>
+    <li>
+      <p>Fixed assets are first recorded as assets that later are gradually “expensed off,” or claimed as a business
+        expense, over time.</p>
+    </li>
+    <li>
+      <p>The process of “expensing off” the cost of a fixed asset as it is “used up” over its estimated useful life is
+        “Depreciation”.</p>
+      <ul>
+        <li>(NOTE: Land is property that does not “get used up;” therefore it is not depreciated.)</li>
+      </ul>
+    </li>
+  </ul>
+  <h1 id="cost-accounting">Cost Accounting</h1>
+  <ul>
+    <li>Costing is a specialised branch of accounting.</li>
+    <li>It has been developed because of limitations of financial accounts.</li>
+    <li>In the present day it is absolutely necessary that a business concern should operate its activities with utmost
+      efficiency and at the lowest cost.
+    </li>
+  </ul>
+  <img src="./img/memes/Untitled.jpg">
+  <h2 id="why-should-there-be-costing-in-the-field-of-business">Why should there be costing in the field of business?
+  </h2>
+  <ul>
+    <li>It helps us to classify, record, and allocate the expenditure for the determination of costs of product.</li>
+    <li>Expenditure involved in business has to be ascertained to fix the price of a product produced.</li>
+    <li>The expenditure is to be understood in terms of material, labour and other direct and indirect expenses.</li>
+    <li>The major purpose of such classification is to estimate the profit and to understand its relationship with costs
+      and price.</li>
+    <li>The three elements of a transaction i.e., <em>cost, profit and price</em> are necessary components of any
+      business activity.</li>
+  </ul>
+  <h2 id="difference-between-financial-accounting-and-cost-accounting">Difference between financial accounting and cost
+    accounting</h2>
+  <h2 id="cost-accounting-terms--conceptscost-accounting-terms--concepts">Cost Accounting Terms &amp; ConceptsCost
+    Accounting Terms &amp; Concepts</h2>
+  <ul>
+    <li>
+      <p>A cost object is any object that can have a cost applied to it and is used to determine how much a particular
+        thing or activity costs, e.g., products, department, responsibility centers, and activities.</p>
+    </li>
+    <li>
+      <p>Cost management is the process of planning and controlling costs in both the short and long term.</p>
+    </li>
+    <li>
+      <p>Cost management is concerned with lowering overall costs to make money an entity needs to spend money, so cost
+        managementis linked to profit planning</p>
+    </li>
+  </ul>
+  <h2 id="classification-of-costs">Classification Of Costs</h2>
+  <p>Costs can be classified into different categories depending upon the purpose of their classification:</p>
+  <ol>
+    <li>Classification by nature or element.</li>
+    <li>Functional classification.</li>
+    <li>Classification on the basis of behaviour.</li>
+    <li>Classification on the basis of managerial decision making and control.</li>
+  </ol>
+  <h3 id="classification-by-nature-or-element">Classification by nature or element.</h3>
+  <ol>
+    <li>
+      <p><strong>Direct Cost:</strong> These are costs directly attributable to producing a product.</p>
+      <img src="./img/Screenshot 2024-05-25 070749.png">
+    </li>
+    <li>
+      <p><strong>Indirect Costs:</strong> These are the costs which can not be assign to any particular cost unit</p>
+    </li>
+  </ol>
+  <h3 id="3-classification-on-the-basis-of-behaviour">3. Classification on the basis of behaviour.</h3>
+  <ol>
+    <li><strong>Fixed costs:</strong> Costs which do not vary with the level of production are known as fixed costs.
+    </li>
+    <li><strong>Variable Cost:</strong> Costs that vary in direct proportion to the volume of production.</li>
+    <li><strong>Semi-variable costs:</strong> Costs which contain both fixed and variable components are called semi
+      -variable costs</li>
+  </ol>
+  <h2 id="break-even-point">BREAK EVEN POINT</h2>
+  <ul>
+    <li>That point of sales volume at which total revenue is equal to total cost.</li>
+    <li>It is a point of no profit no loss</li>
+    <li>At Break Even:
+      <ul>
+        <li>Total Revenue (Total sales) = Total Cost</li>
+        <li>Total Revenue = Fixed Cost + Variable Cost
+          <ul>
+            <li><em>Where: Total Cost = Fixed Cost + Variable Cost</em></li>
+          </ul>
+        </li>
+        <li>Fixed Cost = Total Revenue - Variable Cost</li>
+        <li>Fixed Cost = Contribution Margin
+          <ul>
+            <li><em>Where: Contribution Margin (CM) = Total Revenue - Variable Cost</em></li>
+          </ul>
+        </li>
+        <li>Net Income = Contribution Margin - Fixed Cost = 0</li>
+        <li>Contribution Margin = Total Revenue - Variable Cost</li>
+      </ul>
+    </li>
+  </ul>
+  <h3 id="the-break-even-point-bep-can-be-computed-in-terms-of">The Break Even Point (B.E.P) can be computed in terms
+    of:</h3>
+  <ol>
+    <li>
+      <p>Units of Sales Volume:</p>
+      <ul>
+        <li>
+          <p>Break Even Point in Units = Fixed Costs / UCM</p>
+          <ul>
+            <li>
+              <p>Where:<br>
+                UCM = Unit contribution margin</p>
+              <p>UCM = Revenue per Unit – Variable Cost per Unit</p>
+              <p>UCM = Unit selling price – Variable Cost per Unit</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Budget Total or in terms of Money Value</p>
+      <ul>
+        <li>
+          <p>Break Even Point in Dollars = Fixed Costs / CM Ratio</p>
+          <ul>
+            <li>
+              <p>Where</p>
+              <p>CM ratio = Total contribution margin / Total sales</p>
+              <p>CM ratio = Unit contribution margin / Unit selling price</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <h3 id="net-income-computation-given-the-break-even-point">Net Income Computation Given The Break Even Point:</h3>
+  <ol>
+    <li>Break Even Point in Units</li>
+  </ol>
+  <ul>
+    <li>
+      <p>Net Income = (Sales in Units – Break Even Point in Units) * UCM</p>
+      <ul>
+        <li>
+          <p>Where:</p>
+          <p>UCM = Unit contribution margin</p>
+          <p>UCM= Revenue per Unit – Variable Cost per Unit</p>
+          <p>UCM= Unit selling price – Variable Cost per Unit</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ol start="2">
+    <li>
+      <p>Break Even Point in Dollars</p>
+      <ul>
+        <li>
+          <p>Net Income =(Sales in Dollars – Break Even Point in Dollars)*CM Ratio</p>
+        </li>
+        <li>
+          <p>Where:</p>
+          <p>CM ratio = Total contribution margin / Total sales</p>
+          <p>CM ratio = Unit contribution margin / Unit selling price</p>
+        </li>
+      </ul>
+    </li>
+  </ol>
 
-.markdown-alert.markdown-alert-caution .markdown-alert-title {
-  color: var(--color-caution);
-}
+  <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
 
-</style>
-        
-        </head>
-        <body class="vscode-body vscode-light">
-            <h1 id="accounting">Accounting</h1>
-<h2 id="table-of-conetent">table of conetent</h2>
-<ul>
-<li><a href="#accounting">Accounting</a>
-<ul>
-<li><a href="#table-of-conetent">table of conetent</a></li>
-<li><a href="#assets">Assets</a>
-<ul>
-<li><a href="#assets-are-classified-based-on-three-criteria">Assets are classified based on three criteria:</a></li>
-</ul>
-</li>
-<li><a href="#liabilities">Liabilities</a>
-<ul>
-<li><a href="#a-liability-can-be-classified-as-current-or-long-term">A liability can be classified as current or long-term:</a></li>
-</ul>
-</li>
-<li><a href="#owners-equity">Owner’s Equity</a></li>
-<li><a href="#revenues--expenses-in-the-accounting-equation">Revenues &amp; Expenses in the Accounting Equation</a></li>
-<li><a href="#financial-statements">Financial statements</a>
-<ul>
-<li><a href="#the-primary-financial-statements-include-the-following">The primary financial statements include the following:</a></li>
-</ul>
-</li>
-<li><a href="#the-journal">The Journal</a></li>
-<li><a href="#rules-of-debit-and-credit">rules of debit and credit</a></li>
-<li><a href="#the-ledger">The Ledger</a>
-<ul>
-<li><a href="#important">IMPORTANT:</a></li>
-</ul>
-</li>
-<li><a href="#trial-balance">Trial Balance</a>
-<ul>
-<li><a href="#important-1">IMPORTANT:</a></li>
-</ul>
-</li>
-<li><a href="#income-statement">Income statement</a></li>
-<li><a href="#statement-of-owners-equity">Statement of owner's equity</a></li>
-<li><a href="#balance-sheet">Balance Sheet</a></li>
-<li><a href="#adjusting-entries">Adjusting entries</a>
-<ul>
-<li><a href="#important-2">IMPORTANT:</a></li>
-<li><a href="#there-are-two-types-of-adjusting-entries">There are two types of adjusting entries:</a></li>
-</ul>
-</li>
-<li><a href="#depreciation">Depreciation</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="assets">Assets</h2>
-<p>Assets in accounting are resources that a company owns and uses to generate income and future economic benefits. Examples of assets are company equipment, vehicles, accounts receivable, prepaid insurance, and office supplies.</p>
-<h3 id="assets-are-classified-based-on-three-criteria">Assets are classified based on three criteria:</h3>
-<ol>
-<li>
-<p><strong>Current vs noncurrent</strong>: An asset can be classified based on how soon it can be converted to cash, or its economic benefit realized.</p>
-</li>
-<li>
-<p><strong>Tangible vs intangible</strong>: An asset is classified based on its physical existence.</p>
-</li>
-<li>
-<p><strong>Operating vs nonoperating</strong>: An asset is classified based on whether it’s used in the core operations of the business.</p>
-</li>
-</ol>
-<h2 id="liabilities">Liabilities</h2>
-<p>Liabilities are amounts owed to other persons or entities as a result of a past event and involve a future settlement using cash, goods, or services. Customers and vendors can be sources of liabilities for operations. Paying taxes, fees, permits, and salaries are liabilities once they become due but aren’t yet paid. Businesses use their assets to pay liabilities.</p>
-<h3 id="a-liability-can-be-classified-as-current-or-long-term">A liability can be classified as current or long-term:</h3>
-<ol>
-<li>
-<p><strong>Current</strong>: Due in less than 12 months or within the normal operating cycle, whichever is shorter.</p>
-</li>
-<li>
-<p><strong>Long-term</strong>: Expected to be settled for a period of more than 12 months; some long-term liabilities also require the application of the time value of money (computation of compounding interest), such as leases, pensions, and notes</p>
-</li>
-</ol>
-<h2 id="owners-equity">Owner’s Equity</h2>
-<p>Owner’s equity is the residual interest or amount that assets exceed liabilities. It also represents the amount of paid-in capital and retained earnings as a result of doing business for profit.</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>O</mi><mi>w</mi><mi>n</mi><mi>e</mi><mi>r</mi><mtext>’</mtext><mi>s</mi><mi>E</mi><mi>q</mi><mi>u</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo>=</mo><mi>A</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>t</mi><mi>s</mi><mo>−</mo><mi>L</mi><mi>i</mi><mi>a</mi><mi>b</mi><mi>i</mi><mi>l</mi><mi>i</mi><mi>t</mi><mi>i</mi><mi>e</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">Owner’s Equity = Assets - Liabilities 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">Ow</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord">’</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.03588em;">Eq</span><span class="mord mathnormal">u</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">sse</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">iabi</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">es</span></span></span></span></span></p>
-<h2 id="revenues--expenses-in-the-accounting-equation">Revenues &amp; Expenses in the Accounting Equation</h2>
-<p><strong>Revenue</strong> is income that results from a business engaging in the activities that it is set up to do.
-<strong>Expenses</strong> are bills and other costs a business must pay for it to operate and earn revenue.</p>
-<h2 id="financial-statements">Financial statements</h2>
-<p>Financial statements are written records that convey the business activities and the financial performance of a company. They are used to provide information about a company’s financial position, performance, and cash flows.</p>
-<h3 id="the-primary-financial-statements-include-the-following">The primary financial statements include the following:</h3>
-<ol>
-<li>Income statement.</li>
-<li>Statement of owner's equity.</li>
-<li>Balance sheet.</li>
-<li>Statement of cash flows.</li>
-</ol>
-<h2 id="the-journal">The Journal</h2>
-<p>Financial statements are key goals of the accounting process. In order to prepare them at the end of an accounting period, individual financial transactions must be analyzed, classified, and recorded all throughout the period. This initially takes place in a record book called the journal, where financial events called transactions are recorded as they happen, in chronological order.</p>
-<p>When a transaction occurs, two or more accounts are affected. There is also a dollar amount associated with each of the accounts. Determining which accounts are impacted, and by how much, is the first step in making a journal entry.
-<img src="./img/Screenshot 2024-05-24 145603.png"/></p>
-<h2 id="rules-of-debit-and-credit">rules of debit and credit</h2>
-<table>
-<thead>
-<tr>
-<th>Account Type</th>
-<th>Normal Balance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Assests</td>
-<td>Debit</td>
-</tr>
-<tr>
-<td>Expense</td>
-<td>Debit</td>
-</tr>
-<tr>
-<td>Revenue</td>
-<td>Credit</td>
-</tr>
-<tr>
-<td>Liability</td>
-<td>Credit</td>
-</tr>
-<tr>
-<td>Owner Equity</td>
-<td>Credit</td>
-</tr>
-</tbody>
-</table>
-<h2 id="the-ledger">The Ledger</h2>
-<p>The ledger is the second accounting record book that is a list of a company’s individual accounts list in order of account category. While the journal lists all types of transactions chronologically, the ledgers separate this same information out by account and keep a running balance of each of these accounts.</p>
-<p>Each account has its own ledger page. The account name appears across the top.</p>
-<h3 id="important">IMPORTANT:</h3>
-<ol>
-<li>Information entered in the ledger is always copied from what is already in the journal.</li>
-<li>An account’s running balance typically appears in either the Debit or the Credit column, not both..</li>
-<li>The process of copying from the journal to the ledger is called Posting.</li>
-</ol>
-<img src="./img/Screenshot 2024-05-24 222033.png">
-<h2 id="trial-balance">Trial Balance</h2>
-<ul>
-<li>The total of all the debit balances in a company’s ledger accounts must always equal the total of all the credit balances.</li>
-<li>A trial balance is a list of all a business’s accounts and its current ledger balances (copied over from the ledger accounts).</li>
-<li>A trial balance may be generated at any time to test whether total debits equals total credits. It is simply a worksheet to check for accuracy before preparing financial statements.</li>
-</ul>
-<h3 id="important-1">IMPORTANT:</h3>
-<p>If both of the Total columns do not equal, there is an error that must be found and corrected.
-<img src="./img/Screenshot 2024-05-24 222440.png"></p>
-<h2 id="income-statement">Income statement</h2>
-<ul>
-<li>The income statement is a report that lists and summarizes <strong><em>revenue, expense, and net income information</em></strong> for a period of time, usually a month or a year.</li>
-<li>It is based on the following equation:</li>
-</ul>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>n</mi><mi>u</mi><mi>e</mi><mo>−</mo><mi>E</mi><mi>x</mi><mi>p</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>e</mi><mi>s</mi><mo>=</mo><mi>N</mi><mi>e</mi><mi>t</mi><mtext> </mtext><mi>i</mi><mi>n</mi><mi>c</mi><mi>o</mi><mi>m</mi><mi>e</mi><mo stretchy="false">(</mo><mi>o</mi><mi>r</mi><mtext> </mtext><mi>N</mi><mi>e</mi><mi>t</mi><mtext> </mtext><mi>l</mi><mi>o</mi><mi>s</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Revenue - Expenses =Net\space income (or\space Net\space loss)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">x</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">ses</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mspace"> </span><span class="mord mathnormal">in</span><span class="mord mathnormal">co</span><span class="mord mathnormal">m</span><span class="mord mathnormal">e</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">oss</span><span class="mclose">)</span></span></span></span></span></p>
-<h2 id="statement-of-owners-equity">Statement of owner's equity</h2>
-<ul>
-<li>
-<p>The statement of owner's equity is prepared after the income statement.</p>
-</li>
-<li>
-<p>It shows the beginning and ending owner's equity balances and the items affecting owner's equity during the period.</p>
-</li>
-<li>
-<p>These items include investments, the net income or loss from the income statement, and withdrawals.</p>
-</li>
-<li>
-<p>Because the specific revenue and expense categories that determine net income or loss appear on the income statement, the statement of owner's equity shows only the total net income or loss.</p>
-<img src="./img/Screenshot 2024-05-24 222952.png">
-</li>
-</ul>
-<h2 id="balance-sheet">Balance Sheet</h2>
-<p>The balance sheet shows the balance, at a particular time, of each asset, each liability, and owner's equity.
-It proves that the accounting equation is in balance.</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>t</mi><mi>s</mi><mo>=</mo><mi>L</mi><mi>i</mi><mi>a</mi><mi>b</mi><mi>i</mi><mi>l</mi><mi>i</mi><mi>t</mi><mi>i</mi><mi>e</mi><mi>s</mi><mo>+</mo><mi>O</mi><mi>w</mi><mi>n</mi><mi>e</mi><msup><mi>r</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>s</mi><mi>E</mi><mi>q</mi><mi>u</mi><mi>i</mi><mi>t</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">Assets = Liabilities + Owner&#x27;s Equity
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">sse</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">iabi</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">es</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9963em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">Ow</span><span class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.03588em;">Eq</span><span class="mord mathnormal">u</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span></p>
-<p>The ending balance on the statement of owner's equity is used to report owner's equity on the balance sheet.</p>
-<h2 id="adjusting-entries">Adjusting entries</h2>
-<ul>
-<li>Adjusting entries are special entries made just before financial statements are prepared at the end of the month and/or year.</li>
-<li>They bring the balances of certain accounts up to date if they are not already current to properly match revenues and expenses.</li>
-<li>Many ledger account balances are already correct at the end of the accounting period; however, some account balances may have changed during the period, but have not yet been updated.</li>
-<li>This is what you will do by making adjusting entries, and this will ensure that your financial statement numbers are current and correct.</li>
-</ul>
-<h3 id="important-2">IMPORTANT:</h3>
-<ol>
-<li>Each adjusting entry will always affect at least one income statement account (revenue or expense) and one balance sheet account (asset or liability)</li>
-</ol>
-<p>The following list includes accounts whose balances may need to be brought up to date due to adjusting entries process
-<img src="./img/Screenshot 2024-05-25 024411.png"/></p>
-<h3 id="there-are-two-types-of-adjusting-entries">There are two types of adjusting entries:</h3>
-<ul>
-<li>Deferrals, <em>&quot;Deferred&quot; means &quot;postponed into the future&quot;</em></li>
-<li>Accruals, <em>&quot;Accrued&quot; means &quot;to grow over time&quot; or &quot;accumulated&quot;</em></li>
-</ul>
-<ol>
-<li>Deferred expenses
-In this case you have purchased something in “bulk” that will last you longer than one month, such as supplies, insurance, rent, or equipment</li>
-<li>Deferred revenue
-In this case a customer has paid you in advance for a service you will perform in the future.</li>
-<li>Accrued expenses
-In this case someone is already performing a service for you, but you have not paid them or recorded any journal entry yet.</li>
-<li>Accrued revenue
-In this case a customer will only pay you well after you complete a job that extends more than one accounting period.</li>
-</ol>
-<h2 id="depreciation">Depreciation</h2>
-<ul>
-<li>
-<p>A fixed asset is a tangible/physical item owned by a business that is relatively expensive and has a permanent or long life, more than one year.</p>
-</li>
-<li>
-<p>Examples are equipment, furnishings, vehicles, buildings, and land.</p>
-</li>
-<li>
-<p>Each of these is recorded as an asset at the time it is purchased.</p>
-</li>
-<li>
-<p>Its initial value, and the amount in the journal entry for the purchase, is what it costs.</p>
-</li>
-<li>
-<p>Although fixed assets cost a company money, they are not initially recorded as expenses.</p>
-<ul>
-<li>( Notice in the journal entry of Example (2) that the debit account is “Equipment,” NOT “Equipment Expense”).</li>
-</ul>
-</li>
-<li>
-<p>Fixed assets are first recorded as assets that later are gradually “expensed off,” or claimed as a business expense, over time.</p>
-</li>
-<li>
-<p>The process of “expensing off” the cost of a fixed asset as it is “used up” over its estimated useful life is “Depreciation”.</p>
-<ul>
-<li>(NOTE: Land is property that does not “get used up;” therefore it is not depreciated.)</li>
-</ul>
-</li>
-</ul>
+</body>
 
-            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
-            
-        </body>
-        </html>
+</html>
